@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import Image from "next/image";
@@ -18,7 +18,10 @@ import {
 import { CartContext } from "@/context/ProductsProvider";
 
 export default function Cart() {
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+  }, []);
   const {
     cart,
     toggleCart,
