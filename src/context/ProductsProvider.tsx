@@ -5,7 +5,7 @@ import React, {
 import { ProductContextProps } from "@/app/types/types";
 import { ProductsType } from "@/app/types";
 
-export const CartContext = createContext({} as ProductContextProps);
+export const CartContext = createContext<ProductContextProps>({} as ProductContextProps);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<ProductsType[]>([]);

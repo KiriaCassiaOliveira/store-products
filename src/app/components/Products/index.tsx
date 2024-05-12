@@ -4,14 +4,18 @@ import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import { RiShoppingBag3Line } from "react-icons/ri";
 import {
-  Container, Product, ProductImage, ProductItens, Buy, BuyButton,
+  Container,
+  Product,
+  ProductImage,
+  ProductItens,
+  Buy,
+  BuyButton,
 } from "./style";
-import { GetProducts } from "@/app/components/Service";
-import { ProductsType } from "@/app/types/ProductsType";
+import { GetProducts } from "@/app/components/Service/index";
 import { CartContext } from "@/context/ProductsProvider";
 
 export default function Products() {
-  const [products, setProducts] = useState<ProductsType[]>([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
 
