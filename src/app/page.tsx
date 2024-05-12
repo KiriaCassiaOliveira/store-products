@@ -13,9 +13,9 @@ export default function Home() {
     <CartProvider>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyles />
-        <Container>
-          <Header />
-          <Products />
+        <Container data-testid="home-component">
+          <Header data-testid="header-component" />
+          <Products data-testid="products-component" />
         </Container>
       </ThemeProvider>
     </CartProvider>

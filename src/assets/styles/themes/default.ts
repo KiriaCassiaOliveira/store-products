@@ -17,4 +17,5 @@ export default {
       dark: "#CB9011",
     },
   },
+  font: "Montserrat, sans-serif",
 };

@@ -2,11 +2,11 @@
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
+import { RiShoppingBag3Line } from "react-icons/ri";
 import {
-  Container, Product, ProductImage, ProductItens,
+  Container, Product, ProductImage, ProductItens, Buy, BuyButton,
 } from "./style";
 import { GetProducts } from "@/app/components/Service";
-import { Button } from "../Button/style";
 import { ProductsType } from "@/app/types/ProductsType";
 import { CartContext } from "@/context/ProductsProvider";
 
@@ -61,7 +61,10 @@ export default function Products() {
 
             <p>{product.description}</p>
 
-            <Button onClick={() => addToCart(product)}>COMPRAR</Button>
+            <Buy>
+              <RiShoppingBag3Line />
+              <BuyButton onClick={() => addToCart(product)}>COMPRAR</BuyButton>
+            </Buy>
           </Product>
         ))
       ) : (

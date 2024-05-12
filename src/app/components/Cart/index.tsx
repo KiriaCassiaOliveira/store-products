@@ -1,16 +1,32 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useContext } from "react";
 import { motion } from "framer-motion";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import Image from "next/image";
 import {
-  Container, IconCart, HeaderCart, FooterCart, ProductCart,
+  Container,
+  IconCart,
+  HeaderCart,
+  FooterCart,
+  ProductCart,
+  ProductQnt,
+  ExitButton,
+  FinallyButton,
+  ButtonRemove,
 } from "./style";
-import { Button } from "../Button/style";
 import { CartContext } from "@/context/ProductsProvider";
 
 export default function Cart() {
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
   const {
-    cart, toggleCart, isOpen, total, decreaseQuantity, increaseQuantity, removeItem,
+    cart,
+    toggleCart,
+    isOpen,
+    total,
+    decreaseQuantity,
+    increaseQuantity,
+    removeItem,
   } = useContext(CartContext);
 
   return (
@@ -29,8 +45,8 @@ export default function Cart() {
           style={{
             backgroundColor: "#0f52ba",
             color: "#fff",
-            width: "27%",
-            height: "900px",
+            width: isMobile ? "50%" : "27%",
+            height: "100%",
             position: "fixed",
             top: "0",
             right: isOpen ? "0" : "-100%",
@@ -42,7 +58,7 @@ export default function Cart() {
         >
           <HeaderCart>
             <p>Carrinho de compras</p>
-            <Button $primary onClick={toggleCart}>X</Button>
+            <ExitButton onClick={toggleCart}>X</ExitButton>
           </HeaderCart>
 
           <div>
@@ -55,17 +71,18 @@ export default function Cart() {
                   height={50}
                 />
                 <p>{product.name}</p>
-                <div>
-                  <button type="button" onClick={(event: React.MouseEvent<HTMLButtonElement>) => decreaseQuantity(product.id)}>-</button>
+                <ProductQnt>
+                  <span onClick={() => decreaseQuantity(product.id)}>-</span>
                   <p>{product.qnt}</p>
-                  <button  type="button" onClick={(event: React.MouseEvent<HTMLButtonElement>) => increaseQuantity(product.id)}>+</button>
-                </div>
+                  <span onClick={() => increaseQuantity(product.id)}>+</span>
+                </ProductQnt>
                 <strong>
                   R$
                   {product.price}
                 </strong>
-                <button onClick={() => removeItem(product.id)}>x</button>
-                {/* Renderize outros detalhes do produto, se necessário */}
+                <ButtonRemove onClick={() => removeItem(product.id)}>
+                  X
+                </ButtonRemove>
               </ProductCart>
             ))}
           </div>
@@ -74,9 +91,8 @@ export default function Cart() {
               Total: R$
               {total.toFixed(2)}
             </p>
-            <Button>Finalizar Compra</Button>
+            <FinallyButton>Finalizar Compra</FinallyButton>
           </FooterCart>
-
         </motion.div>
       )}
     </Container>
