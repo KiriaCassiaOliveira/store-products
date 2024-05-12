@@ -31,7 +31,7 @@ export default function Cart() {
 
   return (
     <Container>
-      <IconCart onClick={toggleCart}>
+      <IconCart onClick={() => toggleCart(true)}>
         <HiMiniShoppingCart />
         <p>{cart.length}</p>
       </IconCart>
@@ -58,7 +58,7 @@ export default function Cart() {
         >
           <HeaderCart>
             <p>Carrinho de compras</p>
-            <ExitButton onClick={toggleCart}>X</ExitButton>
+            <ExitButton onClick={() => toggleCart(false)}>X</ExitButton>
           </HeaderCart>
 
           <div>

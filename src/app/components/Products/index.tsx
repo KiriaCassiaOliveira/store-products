@@ -13,9 +13,10 @@ import {
 } from "./style";
 import { GetProducts } from "@/app/components/Service/index";
 import { CartContext } from "@/context/ProductsProvider";
+import { ProductsType } from "@/app/types";
 
 export default function Products() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<ProductsType[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
 
