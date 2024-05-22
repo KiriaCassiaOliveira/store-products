@@ -8,12 +8,14 @@ import {
   Container,
   IconCart,
   HeaderCart,
-  FooterCart,
   ProductCart,
   ProductQnt,
   ExitButton,
   FinallyButton,
   ButtonRemove,
+  TotalFinally,
+  Img,
+  Price,
 } from "./style";
 import { CartContext } from "@/context/ProductsProvider";
 
@@ -32,6 +34,11 @@ export default function Cart() {
     removeItem,
   } = useContext(CartContext);
 
+  const formatReal = (value: number) => value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
   return (
     <Container>
       <IconCart onClick={() => toggleCart(true)}>
@@ -46,9 +53,9 @@ export default function Cart() {
           exit={{ opacity: 0, x: "100%" }}
           transition={{ duration: 0.3 }}
           style={{
-            backgroundColor: "#0f52ba",
-            color: "#fff",
-            width: isMobile ? "50%" : "27%",
+            backgroundColor: "#fff",
+            color: "#665635",
+            width: isMobile ? "70%" : "33%",
             height: "100%",
             position: "fixed",
             top: "0",
@@ -60,42 +67,47 @@ export default function Cart() {
           }}
         >
           <HeaderCart>
-            <p>Carrinho de compras</p>
+            <p>Meu carrinho</p>
             <ExitButton onClick={() => toggleCart(false)}>X</ExitButton>
           </HeaderCart>
 
           <div>
             {cart.map((product) => (
               <ProductCart key={product.id}>
-                <Image
-                  src={product.photo}
-                  alt="Imagem do produto"
-                  width={50}
-                  height={50}
-                />
+                <Img>
+                  <Image
+                    src={product.photo}
+                    alt={product.name}
+                    width={50}
+                    height={50}
+                  />
+                </Img>
                 <p>{product.name}</p>
                 <ProductQnt>
                   <span onClick={() => decreaseQuantity(product.id)}>-</span>
                   <p>{product.qnt}</p>
                   <span onClick={() => increaseQuantity(product.id)}>+</span>
                 </ProductQnt>
-                <strong>
-                  R$
-                  {product.price}
-                </strong>
-                <ButtonRemove onClick={() => removeItem(product.id)}>
-                  X
-                </ButtonRemove>
+                <Price>
+                  <strong>
+                    R$
+                    {product.price}
+                  </strong>
+                  <ButtonRemove onClick={() => removeItem(product.id)}>
+                    X
+                  </ButtonRemove>
+                </Price>
+
               </ProductCart>
             ))}
           </div>
-          <FooterCart>
+          <TotalFinally>
             <p>
-              Total: R$
-              {total.toFixed(2)}
+              Total:
+              {formatReal(total)}
             </p>
-            <FinallyButton>Finalizar Compra</FinallyButton>
-          </FooterCart>
+            <FinallyButton>Comprar Agora</FinallyButton>
+          </TotalFinally>
         </motion.div>
       )}
     </Container>

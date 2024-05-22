@@ -4,7 +4,7 @@ import Cart from "@/app/components/Cart";
 export default function Header() {
   return (
     <Container>
-      <Title> MKS Sistemas </Title>
+      <Title> Loja Produtos </Title>
       <Cart />
     </Container>
   );

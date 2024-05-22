@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-nested-ternary */
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
@@ -18,11 +20,14 @@ import { ProductsType } from "@/app/types";
 export default function Products() {
   const [products, setProducts] = useState<ProductsType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     async function fetchProducts() {
       try {
+        setLoading(true);
+        setError(null);
         const page = 1;
         const rows = 10;
         const sortBy = "name";
@@ -31,9 +36,12 @@ export default function Products() {
         const response = await GetProducts(page, rows, sortBy, orderBy);
         if (response && response.products) {
           setProducts(response.products);
-          setLoading(false);
+        } else {
+          setError("Falha ao carregar produtos.");
         }
       } catch (error) {
+        setError("Erro ao buscar produtos.");
+      } finally {
         setLoading(false);
       }
     }
@@ -41,10 +49,24 @@ export default function Products() {
     fetchProducts();
   }, []);
 
+  const formatPrice = (price: string) => {
+    const numericPrice = typeof price === "string" ? parseFloat(price) : price;
+    if (isNaN(numericPrice)) {
+      return "Preço inválido";
+    }
+
+    return numericPrice.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  };
+
   return (
     <Container>
       {loading ? (
         <Skeleton count={5} />
+      ) : error ? (
+        <p>{error}</p>
       ) : products && products.length > 0 ? (
         products.map((product) => (
           <Product key={product.id}>
@@ -58,14 +80,9 @@ export default function Products() {
             </ProductImage>
             <ProductItens>
               <h3>{product.name}</h3>
-              <strong>
-                R$
-                {product.price}
-              </strong>
+              <p>{product.description}</p>
+              <strong>{formatPrice(product.price)}</strong>
             </ProductItens>
-
-            <p>{product.description}</p>
-
             <Buy>
               <RiShoppingBag3Line />
               <BuyButton onClick={() => addToCart(product)}>COMPRAR</BuyButton>

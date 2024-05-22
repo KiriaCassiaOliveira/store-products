@@ -7,22 +7,25 @@ export const Container = styled.section`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 export const Product = styled.div`
-  width: calc(50% - 20px);
+  width: calc(25% - 20px);
   margin-bottom: 20px;
   border: none;
   box-sizing: border-box;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
     width: calc(50% - 20px);
   }
-
-  @media (min-width: 1024px) {
-    width: calc(25% - 20px);
+  @media (max-width: 425px) {
+    width: 100%;
   }
+
   img {
     width: 62px;
     height: 86px;
@@ -48,21 +51,22 @@ export const ProductItens = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 15px;
+  flex-direction: column;
+  width: 100%;
   h3 {
     font-size: 15px;
   }
   strong {
-    background-color: #373737;
-    color: #fff;
+    color: #665635;
     padding: 10px;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 20px;
   }
 `;
 
 export const Buy = styled.div`
   display: flex;
-  background-color: #0f52ba;
+  background-color: #4d6a3c;
   align-items: center;
   border-bottom-left-radius: 13px;
   border-bottom-right-radius: 13px;
@@ -78,5 +82,5 @@ export const BuyButton = styled.button`
   color: #fff;
   padding: 5px;
   height: 50px;
-  background-color: #0f52ba;
+  background-color: #4d6a3c;
 `;
