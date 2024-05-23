@@ -1,4 +1,4 @@
-import api from "./axios";
+import api from "../service/axios";
 
 export const GetProducts = async (page: number, rows: number, sortBy: string, orderBy: string) => {
   try {

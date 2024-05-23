@@ -14,7 +14,7 @@ import {
   Buy,
   BuyButton,
 } from "./style";
-import { GetProducts } from "@/app/components/Service/index";
+import { GetProducts } from "@/app/service/index";
 import { CartContext } from "@/context/ProductsProvider";
 import { ProductsType } from "@/app/types";
 
