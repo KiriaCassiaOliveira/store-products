@@ -1,7 +1,8 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-nested-ternary */
-import { useContext, useEffect, useState } from "react";
+
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import { RiShoppingBag3Line } from "react-icons/ri";
@@ -64,7 +65,7 @@ export default function Products() {
   return (
     <Container>
       {loading ? (
-        <Skeleton count={5} />
+        <Skeleton count={5} height={200} />
       ) : error ? (
         <p>{error}</p>
       ) : products && products.length > 0 ? (

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useContext, useEffect, useState } from "react";
@@ -21,9 +22,19 @@ import { CartContext } from "@/context/ProductsProvider";
 
 export default function Cart() {
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+      const mediaQuery = window.matchMedia("(max-width: 768px)");
+      setIsMobile(mediaQuery.matches);
+
+      const handleResize = () => setIsMobile(mediaQuery.matches);
+      mediaQuery.addEventListener("change", handleResize);
+
+      return () => mediaQuery.removeEventListener("change", handleResize);
+    }
   }, []);
+
   const {
     cart,
     toggleCart,
@@ -43,7 +54,7 @@ export default function Cart() {
     <Container>
       <IconCart onClick={() => toggleCart(true)}>
         <HiMiniShoppingCart />
-        <p>{cart.length}</p>
+        <p>{cart ? cart.length : 0}</p>
       </IconCart>
 
       {isOpen && (
