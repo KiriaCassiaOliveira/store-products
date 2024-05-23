@@ -9,8 +9,11 @@ export const Container = styled.div`
   background-color: #f2f2f2;
   height: 40px;
   color: #b29d6e;
-  position: absolute;
+  /* position: relative; */
+  /* bottom: 0; */
+  position: fixed;
   bottom: 0;
+  width: 100%;
   a{
     color: #b29d6e;
   }
